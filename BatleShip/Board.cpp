@@ -36,7 +36,7 @@ void Board ::createBoard()
 	}
 	cout << '|' << endl;
 
-	for (int i = 0; i < 45; i++)
+	for (int i = 0; i < 28; i++)
 	{
 		cout << "#";
 	}
@@ -74,7 +74,7 @@ void Board ::createBoard()
 		cout << "\n";
 	}
 
-	for (int i = 0; i < 45; i++)
+	for (int i = 0; i < 28; i++)
 	{
 		cout << "#";
 	}

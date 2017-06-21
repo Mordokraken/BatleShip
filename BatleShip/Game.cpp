@@ -7,14 +7,16 @@ using namespace std;
 Game::Game()
 {
 
-	//ships = new Ships();
-	//ships->createShip();
 
-	system("cls");//cleaning scren
 
-    board = new Board();
-    board->createBoard();
+	board = new Board();
+	board->createBoard();
+
+	ship = new Ships();
+	ship->createShip();
  
+	//system("cls");//cleaning scren
+
 
 
 }

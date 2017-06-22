@@ -4,33 +4,26 @@ using namespace std;
 
 Ships::Ships()
 {
-	userName;
-
-	cout << "Welcome <BatleShip> Game\n";
-	cout << "Enter your name\n";
-	cin >> userName;
-	if (cin)
-	{
-		system("cls");
-	}
-	cout << "Hi  " << userName << endl;
-	cout << "You have 1 4-deck ship  ####\n";
-	cout << "         2 3-deck ships ###\n";
-	cout << "         3 2-deck ships ##\n";
-	cout << "and      4 1-deck ships #\n";
-
 
 
 
 }
 
-void Ships::createShip()
+void Ships::createShip(int posX, int posY, char enemiesBoard[10][10])
 {
-	posX;
-	posY;
+	enemiesBoard[posX][posY] = '#';
 
-	cout << "Enter the " << "position in the format <A 1> \n";
+}
 
+void Ships::shotUser(int posX, int posY,char enemiesBoard[10][10])
+{
+	enemiesBoard[posX][posY] = 'x';
+
+   
+}
+void Ships::shotEnemies(int posX, int posY, char enemiesBoard[10][10])
+{
+	enemiesBoard[posX][posY] = 'O';
 
 }
 Ships::~Ships()

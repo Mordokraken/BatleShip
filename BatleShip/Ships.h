@@ -2,17 +2,19 @@
 
 #include<iostream>
 #include<conio.h>
-#include <string>
+
 
 
 class Ships
 {
-public:
-	std::string userName;
-	char posX;
-	int posY;
 
-	void createShip();
+public:
+
+
+	void createShip(int posX, int posY, char enemiesBoard[10][10]);
+	void shotUser(int posX, int posY, char enemiesBoard[10][10 ]);
+	void shotEnemies(int posX, int posY, char enemiesBoard[10][10]);
+
 	Ships();
 	~Ships();
 };

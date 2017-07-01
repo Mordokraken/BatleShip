@@ -33,11 +33,15 @@ void Game::gameMenu()
 {
 	userName;
 
-	cout << "Welcome <BatleShip> Game\n";
+	cout << "Welcome <BatleShip> Game\n\n\n";
+
+	//system("cls");
+
 	cout << "Enter your name\n";
 	cin >> userName;
 
 	cout << "Hi  " << userName << endl;
+
 	cout << "You have 1 4-deck ship  ####\n";
 	cout << "         2 3-deck ships ###\n";
 	cout << "         3 2-deck ships ##\n";
@@ -51,9 +55,29 @@ void Game::gameMenu()
 void Game::gameStart()
 {
 	
-	system("cls");
-
 	mBoard = new Board();
+	char gameBoard1[10][10];
+	char gameEnemy[10][10];
+
+	for (int i = 0; i < 10; i++)
+	{
+		for (int j = 0; j < 10; j++)
+		{
+			gameBoard1[i][j] = {' '};
+		}
+	}
+
+	gameBoard1[1][1] = { '#' }; gameBoard1[1][4] = { '#' }; gameBoard1[1][7] = { '#' }; gameBoard1[2][1] = { '#' };
+	gameBoard1[2][7] = { '#' }; gameBoard1[3][1] = { '#' }; gameBoard1[3][3] = { '#' }; gameBoard1[3][4] = { '#' };
+	gameBoard1[4][1] = { '#' }; gameBoard1[4][8] = { '#' }; gameBoard1[5][5] = { '#' }; gameBoard1[5][6] = { '#' };
+	gameBoard1[6][1] = { '#' }; gameBoard1[6][2] = { '#' }; gameBoard1[6][3] = { '#' }; gameBoard1[7][5] = { '#' };
+	gameBoard1[7][7] = { '#' }; gameBoard1[8][1] = { '#' }; gameBoard1[8][2] = { '#' }; gameBoard1[8][3] = { '#' };
+
+	mBoard->initBoard(gameEnemy);
+	mBoard->drawBoard(gameBoard1, gameEnemy);
+	mBoard->batlesBoard(gameBoard1, gameEnemy);
+
+
 	
 }
 

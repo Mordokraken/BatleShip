@@ -12,6 +12,9 @@ int const QUANTITY_CELLS = 100;
 
 Board::Board()
 {
+	/*
+	
+	
 	BoardUser[HIGHT_BOARD][WIDTH_BOARD];
 	BoardEnemy[HIGHT_BOARD][WIDTH_BOARD];
 	BoardEnemyUnit[HIGHT_BOARD][WIDTH_BOARD];
@@ -27,18 +30,19 @@ Board::Board()
 	 lifeUser = 20;
 	 lifeEnemy = 20;
 
-	 fillingBoard();
+	
 
 	 batlesBoard();
 
 
-	 drawBoard();
-
+	 drawBoard(BoardUser, BoardEnemy);
+	 */
 }
 
-void Board ::drawBoard()
+void Board::drawBoard(char BoardUser[10][10], char BoardEnemy[10][10])
 
 {
+	
 	system("cls");
 
 	cout << ' ' << '|';
@@ -86,11 +90,14 @@ void Board ::drawBoard()
 		cout << "#";
 	}
 
-	cout << "\n  Players ships  Enemies ships \n";	cout <<"    "<<lifeUser<< "              "<< lifeEnemy << endl;	cout << "\n\n\n";
+	cout << "\n  Players ships  Enemies ships \n";
+	cout <<"    "<<lifeUser<< "              "<< lifeEnemy << endl;
+	cout << "\n\n\n";
+	
 }
 
 
-void Board::initBoard()
+void Board::initBoard(char BoardUser[10][10])
 {
 
 	//init game board
@@ -134,7 +141,7 @@ void Board::fillingBoard()
 					if (BoardUser[posX][posY] != '#')
 					{
 						mShip->createShip(posX, posY, BoardUser);
-						drawBoard();
+						drawBoard(BoardUser, BoardEnemy);
 					}
 					else
 					{
@@ -174,7 +181,7 @@ void Board::fillingBoard()
 					if (BoardUser[posX][posY] != '#')
 					{
 						mShip->createShip(posX, posY, BoardUser);
-						drawBoard();
+						drawBoard(BoardUser, BoardEnemy);
 					}
 					else
 					{
@@ -211,7 +218,7 @@ void Board::fillingBoard()
 					if (BoardUser[posX][posY] != '#')
 					{
 						mShip->createShip(posX, posY, BoardUser);
-						drawBoard();
+						drawBoard(BoardUser, BoardEnemy);
 					}
 					else
 					{
@@ -248,7 +255,7 @@ void Board::fillingBoard()
 					if (BoardUser[posX][posY] != '#')
 					{
 						mShip->createShip(posX, posY, BoardUser);
-						drawBoard();
+						drawBoard(BoardUser, BoardEnemy);
 					}
 					else
 					{
@@ -270,7 +277,7 @@ void Board::fillingBoard()
 
 }
 
-void Board::batlesBoard()
+void Board::batlesBoard(char BoardUser[10][10], char BoardEnemy[10][10])
 {
 	for (int  i = 0; i < QUANTITY_CELLS; i++)
 	{
@@ -283,13 +290,13 @@ void Board::batlesBoard()
 			if (BoardEnemyUnit[posX][posY]!='#' )
 			{
 				mShip->shotUser(posX, posY, BoardEnemy);
-				drawBoard();
+				drawBoard(BoardUser, BoardEnemy);
 			}
 			else
 			{
 				lifeEnemy--;
 				mShip->shotEnemies(posX, posY, BoardEnemy);
-				drawBoard();
+				drawBoard(BoardUser, BoardEnemy);
 			}
 
 		}

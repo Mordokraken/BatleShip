@@ -22,14 +22,14 @@ private:
 	char BoardEnemy[10][10];
 	char BoardEnemyUnit[10][10];
 
-	void initBoard();
+	
 	void fillingBoard();
 
 public:
 	Board();
-	void drawBoard();
-	void batlesBoard();
-
+	void drawBoard(char BoardUser [10][10], char BoardEnemy[10][10]);
+	void batlesBoard(char BoardUser[10][10], char BoardEnemy[10][10]);
+	void initBoard(char BoardUser[10][10]);
 
 	~Board();
 };

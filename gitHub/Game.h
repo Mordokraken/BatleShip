@@ -1,6 +1,7 @@
 #include "Board.h"
 #include "Enemy.h"
 #include "Ships.h"
+#include "Map.h"
 
 #include <iostream>
 #include <conio.h>
@@ -13,6 +14,7 @@ private:
 
 	Board* mBoard;
 	Enemy* mEnemy;
+	Map* mMap;
 
 
 	std::string userName;

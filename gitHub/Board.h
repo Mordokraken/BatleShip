@@ -1,13 +1,14 @@
 #pragma once
 #include "Ships.h"
 #include "Enemy.h"
+#include "Map.h"
 
 
 class Board
 {
 private:
 	Ships* mShip;
-	Enemy* mEnemy;
+	Enemy* mEnemy;	
 
 	int const HIGHT_BOARD = 10;
 	int const WIDTH_BOARD = 10;
@@ -15,21 +16,26 @@ private:
 
 	int posX;
 	int posY;
-	int lifeEnemy;
-	int lifeUser;
 
-	char BoardUser[10][10];
-	char BoardEnemy[10][10];
-	char BoardEnemyUnit[10][10];
+	bool mDirection;
 
-	
-	void fillingBoard();
+	char boardUser[10][10];
+	char boardEnemy[10][10];
+	char boardEnemyUnit[10][10];
+
+	char initBoard(char clearBoard[10][10]);
+	int scoreEnemy();
+	int scoreUser();
 
 public:
+
 	Board();
-	void drawBoard(char BoardUser [10][10], char BoardEnemy[10][10]);
-	void batlesBoard(char BoardUser[10][10], char BoardEnemy[10][10]);
-	void initBoard(char BoardUser[10][10]);
+
+	void drawBoard(char boardUser[10][10], char boardEnemy[10][10]);
+	void batlesBoard(char boardUser[10][10], char boardEnemy[10][10]);
+	
+	void enemyShotGun(char boardUser[10][10]);
+	void userShotGun(char boardEnemy[10][10]);
 
 	~Board();
 };

@@ -10,45 +10,75 @@ int const HIGHT_BOARD = 10;
 int const WIDTH_BOARD = 10;
 int const QUANTITY_CELLS = 100;
 
+int  LIFE_USER= 20;
+int  LIFE_ENEMY = 20;
+
+char clearBoard[10][10];
+
 Board::Board()
 {
-	/*
+
+	mDirection = true;
 	
-	
-	BoardUser[HIGHT_BOARD][WIDTH_BOARD];
-	BoardEnemy[HIGHT_BOARD][WIDTH_BOARD];
-	BoardEnemyUnit[HIGHT_BOARD][WIDTH_BOARD];
+	initBoard(clearBoard);
 
-	mShip = new Ships();
-	mEnemy = new Enemy();
-
-	//mEnemy->enemyShot(BoardUser);
-
-	 posX = 0;
-	 posY = 0;
-
-	 lifeUser = 20;
-	 lifeEnemy = 20;
-
-	
-
-	 batlesBoard();
-
-
-	 drawBoard(BoardUser, BoardEnemy);
-	 */
 }
 
-void Board::drawBoard(char BoardUser[10][10], char BoardEnemy[10][10])
+int Board::scoreEnemy()
+{
+	--LIFE_ENEMY;
+
+	return LIFE_ENEMY;
+
+}
+
+int Board::scoreUser()
+{
+	--LIFE_USER;
+
+	return LIFE_USER;
+
+}
+
+
+char Board::initBoard(char clearBoard[10][10])
+{
+
+	//init game board
+	for (int i = 0; i <WIDTH_BOARD; i++)
+
+	{
+
+		for (int j = 0; j <HIGHT_BOARD; j++)
+		{
+			clearBoard[j][i] = ' ';
+
+		}
+
+	}
+
+	return  clearBoard[10][10];
+}
+
+
+
+void Board::batlesBoard(char boardUser[10][10], char boardEnemy[10][10])
+{
+
+
+
+}
+
+void Board::drawBoard(char boardUser[10][10], char boardEnemy[10][10])
 
 {
-	
+
 	system("cls");
 
 	cout << ' ' << '|';
 	for (int i = 0; i <= 9; i++)
 	{
-		cout  << i;
+		cout << i;
 
 	}
 	cout << '|' << ' ' << '|';
@@ -65,19 +95,19 @@ void Board::drawBoard(char BoardUser[10][10], char BoardEnemy[10][10])
 	}
 
 	cout << "\n";
-		//print the userboard and a gameboard
+	//print the userboard and a gameboard
 	for (int i = 0; i <WIDTH_BOARD; i++)
 	{
 		cout << i << "|";
 		for (int j = 0; j <HIGHT_BOARD; j++)
 		{
-			cout << BoardUser[i][j];
+			cout << boardUser[i][j];
 
 		}
 		cout << '|' << i << '|';
 		for (int j = 0; j < HIGHT_BOARD; j++)
 		{
-			cout << BoardEnemy[i][j];
+			cout << boardEnemy[i][j];
 		}
 
 		cout << '|' << i << '|';
@@ -91,220 +121,105 @@ void Board::drawBoard(char BoardUser[10][10], char BoardEnemy[10][10])
 	}
 
 	cout << "\n  Players ships  Enemies ships \n";
-	cout <<"    "<<lifeUser<< "              "<< lifeEnemy << endl;
+	cout << "    " << LIFE_USER << "              " << LIFE_ENEMY << endl;
 	cout << "\n\n\n";
-	
+
+
+
 }
-
-
-void Board::initBoard(char BoardUser[10][10])
+void Board::enemyShotGun(char boardUser[10][10])//метод ,- ход искуственного интелекта
 {
-
-	//init game board
-	for (int i = 0; i <WIDTH_BOARD; i++)
-
+	do
 	{
-
-		for (int j = 0; j <HIGHT_BOARD; j++)
+		int posXEnemy = 0;
+		int posYEnemy = 0;
+		if (mDirection)
 		{
-			BoardUser[j][i] = ' ';
-			BoardEnemy[j][i] = ' ';
-			BoardEnemyUnit[j][i] = ' ';
+			cout << "\n WORLLDD!!!! IS MY!!!!!!!!!!!!!!!!\n" << endl;
+			cout << "mDirection == true" << endl;
+
 		}
-
-	}
-
-
-}
-
-void Board::fillingBoard()
-{
-	//Drow 1 4-deck ship  ####
-	
-
-	for (int i = 0; i < 1; i++)
-	{
+		else
+		{
+			cout << "mDirection == false" << endl;
+		}
 		
-		for (int  i = 0; i < 4; i++)
+		if (mDirection == false)//м≥н€Їмо мƒфрект
+
 		{
-			cout << "Drow 1 4-deck ship  ####\n";
+			
 
-			cout << "Enter first " << i << "Y coordinate\n";
-
-			cin >> posX;						
-			if (posX > 0 && posX < HIGHT_BOARD)
+			if (boardUser[posXEnemy][posYEnemy] != '#')
 			{
-				cout << "enter the two " << i << "X coordinate\n";
-				cin >> posY;
-				if (posY > 0 && posY < HIGHT_BOARD)
-				{
-					if (BoardUser[posX][posY] != '#')
-					{
-						mShip->createShip(posX, posY, BoardUser);
-						drawBoard(BoardUser, BoardEnemy);
-					}
-					else
-					{
-						continue;
-					}
-
-				}
+				mShip->shotUser(posXEnemy, posYEnemy, boardUser);
+				drawBoard(boardUser, clearBoard);
+				mDirection = true;
+				posXEnemy++;
+				posYEnemy++;
+				cout << "miss^((((" << endl;
+				cout << "x = " << posXEnemy << "y = " << posYEnemy << endl;
 
 			}
 			else
 			{
-				cout << "Error input \n";
-				cout << "Enter data still time\n";
-				continue;
+				scoreUser();
+				mShip->shotEnemies(posXEnemy, posYEnemy, boardUser);
+				drawBoard(boardUser, clearBoard);
+				mDirection = false;
+				posXEnemy++;
+				cout << "Nice shot!!!!!" << endl;
 			}
-
 		}
 
-
-	}
-
-
-	for (int i = 0; i < 2; i++)
-	{
-		for (int i = 0; i < 3; i++)
+		posXEnemy++;
+		posYEnemy++;
+		if (posXEnemy == 9 || posYEnemy == 9)
 		{
-			cout << "Drow 2 3-deck ship  ###\n";
-
-			cout << "Enter first " << i << "Y coordinate\n";
-			cin >> posX;
-			if (posX > 0 && posX < HIGHT_BOARD)
-			{
-				cout << "enter the two " << i << "X coordinate\n";
-				cin >> posY;
-				if (posY > 0 && posY < HIGHT_BOARD)
-				{
-					if (BoardUser[posX][posY] != '#')
-					{
-						mShip->createShip(posX, posY, BoardUser);
-						drawBoard(BoardUser, BoardEnemy);
-					}
-					else
-					{
-						continue;
-					}
-				}
-
-			}
-			else
-			{
-				cout << "Error input \n";
-				cout << "Enter data still time\n";
-				continue;
-			}
+			--posXEnemy;
 		}
 
 
-	}
-
-	for (int i = 0; i < 3; i++)
-	{
-		for (int i = 0; i < 2; i++)
-		{
-			cout << "Drow 3 2-deck ship  ##\n";
-			cout << "Enter first " << i << "Y coordinate\n";
-
-			cin >> posX;
-			if (posX > 0 && posX < HIGHT_BOARD)
-			{
-				cout << "enter the two " << i << "X coordinate\n";
-				cin >> posY;
-				if (posY > 0 && posY < HIGHT_BOARD)
-				{
-					if (BoardUser[posX][posY] != '#')
-					{
-						mShip->createShip(posX, posY, BoardUser);
-						drawBoard(BoardUser, BoardEnemy);
-					}
-					else
-					{
-						continue;
-					}
-				}
-
-			}
-			else
-			{
-				cout << "Error input \n";
-				cout << "Enter data still time\n";
-				continue;
-			}
-		}
+	} while (mDirection!=true);
 
 
-	}
-
-	for (int i = 0; i < 4; i++)
-	{
-		for (int i = 0; i < 1; i++)
-		{
-			cout << "Drow 4 1-deck ship  #\n";
-			cout << "Enter first " << i << " Y coordinate\n";
-
-			cin >> posX;
-			if (posX > 0 && posX < HIGHT_BOARD)
-			{
-				cout << "enter the two " << i << "X coordinate\n";
-				cin >> posY;
-				if (posY > 0 && posY < HIGHT_BOARD)
-				{
-					if (BoardUser[posX][posY] != '#')
-					{
-						mShip->createShip(posX, posY, BoardUser);
-						drawBoard(BoardUser, BoardEnemy);
-					}
-					else
-					{
-						continue;
-					}
-				}
-
-			}
-			else
-			{
-				cout << "Error input \n";
-				cout << "Enter data still time\n";
-				continue;
-			}
-		}
-
-
-	}
 
 }
-
-void Board::batlesBoard(char BoardUser[10][10], char BoardEnemy[10][10])
+void Board::userShotGun(char boardEnemy[10][10])
 {
-	for (int  i = 0; i < QUANTITY_CELLS; i++)
+	do
 	{
-		for (int i = 0; i < 1; i++)
+		if (mDirection)
 		{
-			cout << "Shot first  " << i << " Y coordinate\n";
+
+			cout << "Shot first  " << " Y coordinate\n";
 			cin >> posX;
-			cout << "Shot the two " << i << " X coordinate\n";
+			cout << "Shot the two " << " X coordinate\n";
 			cin >> posY;
-			if (BoardEnemyUnit[posX][posY]!='#' )
+			if (boardEnemy[posX][posY] != '#')
 			{
-				mShip->shotUser(posX, posY, BoardEnemy);
-				drawBoard(BoardUser, BoardEnemy);
+				mShip->shotUser(posX, posY, clearBoard);
+				drawBoard(boardEnemy, clearBoard);
+				mDirection = false;
+
 			}
 			else
 			{
-				lifeEnemy--;
-				mShip->shotEnemies(posX, posY, BoardEnemy);
-				drawBoard(BoardUser, BoardEnemy);
+				scoreEnemy();
+				mShip->shotEnemies(posX, posY, clearBoard);
+				drawBoard(boardEnemy, clearBoard);
+				mDirection = true;
+
 			}
 
-		}
-	}
 
+		}
+	} while (mDirection);
 
 
 }
+
+
+
 Board::~Board()
 {
 }

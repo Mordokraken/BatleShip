@@ -1,14 +1,16 @@
 #pragma once
 #include "Ships.h"
-#include "Enemy.h"
 #include "Map.h"
+
+
 
 
 class Board
 {
 private:
 	Ships* mShip;
-	Enemy* mEnemy;	
+
+	
 
 	int const HIGHT_BOARD = 10;
 	int const WIDTH_BOARD = 10;
@@ -32,11 +34,10 @@ public:
 	Board();
 
 	void drawBoard(char boardUser[10][10], char boardEnemy[10][10]);
-	void batlesBoard(char boardUser[10][10], char boardEnemy[10][10]);
-	
-	void enemyShotGun(char boardUser[10][10]);
-	void userShotGun(char boardEnemy[10][10]);
 
-	~Board();
+	void enemyShotGun(char boardUser[10][10]);
+	void userShotGun(char boardUser[10][10], char boardEnemy[10][10]);
+
+
 };
 

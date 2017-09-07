@@ -1,7 +1,7 @@
 #include "Board.h"
-#include "Enemy.h"
 #include "Ships.h"
 #include "Map.h"
+
 
 #include <iostream>
 #include <conio.h>
@@ -13,7 +13,6 @@ private:
 
 
 	Board* mBoard;
-	Enemy* mEnemy;
 	Map* mMap;
 
 
@@ -22,7 +21,7 @@ private:
 	void gameInit();
 	void gameMenu();
 	void gameStart();
-	void gameRestart();
+	//void gameRestart();
 	void gameExit();
 
 
@@ -31,11 +30,5 @@ public:
 	void setBoard(const Board& board);
 	Board& getBoard() const;
 
-
-
-
-
-
 	Game();
-	~Game();
 };

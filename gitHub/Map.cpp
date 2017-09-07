@@ -1,16 +1,21 @@
 #include "Map.h"
 #include "Board.h"
+#include "Timer.h"
 
 #include<cstdlib>
 #include <time.h>
+#include <Windows.h>
 
-
+using namespace std;
 
 Map::Map() 
 {
 	srand(static_cast<unsigned int>(time(0)));
 
 	Board* mBoard = new Board();
+	
+	
+
 	bool mDirection2 = true;
 
 	randNumb = 0;
@@ -21,6 +26,8 @@ Map::Map()
 	playerMap[mapGeneration][10][10];
 	enemyMap[10][10];
 	clearMap[10][10];
+	bufferMap[10][10];
+
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
@@ -35,31 +42,19 @@ Map::Map()
 	mapInit();
 
 	randNumb = randNumber(randNumb);
-
-	mapCreate(bufferMap, playerMap, randNumb);
-
 	randNumb2 = randNumber(randNumb2);
+
+	mapCreate(bufferMap, playerMap, randNumb);	
 	mapCreate(enemyMap, playerMap, randNumb2);
 
-	mBoard->drawBoard(bufferMap, clearMap);
 
-	//mBoard->batlesBoard(bufferMap, enemyMap);
-	/*
-		if (mDirection2)
-	{
-		mBoard->userShotGun(bufferMap);
-		mDirection2 = false;
-	}
-	else
-	{
-		mBoard->enemyShotGun(bufferMap);
-		mDirection2 = true;
-	}
-	
-	*/
+	mBoard->drawBoard (bufferMap, clearMap);
 
-		mBoard->userShotGun(bufferMap);
-		mBoard->enemyShotGun(bufferMap);
+	while (mDirection2)
+	{	
+		mBoard->userShotGun (bufferMap, enemyMap);
+		mBoard->enemyShotGun (bufferMap);
+	}
 
 	
 }
@@ -127,19 +122,19 @@ int Map::randNumber(int randNumb)
 	return randNumb;
 }
 
-char Map::mapCreate(char bufferMap[10][10], char playerMap[5][10][10], int randNumb)
+char Map::mapCreate(char bufMap[10][10], char playMap[5][10][10], int rNumb)
 {
 	char buffer = {' '};
-
+	//fuck
 	for (int i = 0; i < 10; i++)
 	{
 		for (int j = 0; j < 10; j++)
 		{
-			buffer = playerMap[randNumb][i][j];
-			bufferMap[i][j] = buffer;
+			buffer = playMap[rNumb][i][j];
+			bufMap[i][j] = buffer;
 
 		}
 
 	}
-	return  bufferMap[10][10];
+	return  bufMap[10][10];
 }

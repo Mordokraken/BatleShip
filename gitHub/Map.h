@@ -19,7 +19,7 @@ private:
 	int randNumb;
 	int mapGeneration;
 
-	char  mapCreate(char bufferMap[10][10], char playerMap[5][10][10], int randNumb);
+	char  mapCreate(char bufMap[10][10], char playMap[5][10][10], int rNumb);
 	int randNumber(int randNumb);
 	void mapInit();
 public:

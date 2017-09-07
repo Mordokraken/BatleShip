@@ -1,7 +1,9 @@
 #include "Board.h"
+#include "Timer.h"
 #include <iostream>
 #include <conio.h>
 #include <Windows.h>
+#include <time.h>
 
 using namespace std;
 
@@ -13,13 +15,19 @@ int const QUANTITY_CELLS = 100;
 int  LIFE_USER= 20;
 int  LIFE_ENEMY = 20;
 
+int posXEnemy = rand() % 10;
+int posYEnemy = rand() % 10;
+
 char clearBoard[10][10];
+
 
 Board::Board()
 {
-
+	srand(static_cast<unsigned int>(time(0)));
 	mDirection = true;
 	
+	
+
 	initBoard(clearBoard);
 
 }
@@ -61,19 +69,13 @@ char Board::initBoard(char clearBoard[10][10])
 }
 
 
-
-void Board::batlesBoard(char boardUser[10][10], char boardEnemy[10][10])
-{
-
-
-
-}
-
 void Board::drawBoard(char boardUser[10][10], char boardEnemy[10][10])
 
 {
-
+	
 	system("cls");
+	
+	
 
 	cout << ' ' << '|';
 	for (int i = 0; i <= 9; i++)
@@ -119,64 +121,62 @@ void Board::drawBoard(char boardUser[10][10], char boardEnemy[10][10])
 	{
 		cout << "#";
 	}
-
+	
+	//cout << "is not timer;---";
+	
 	cout << "\n  Players ships  Enemies ships \n";
 	cout << "    " << LIFE_USER << "              " << LIFE_ENEMY << endl;
-	cout << "\n\n\n";
+	cout << "\n\n\n" ;
+	
 
 
 
 }
-void Board::enemyShotGun(char boardUser[10][10])//метод ,- ход искуственного интелекта
+void Board::enemyShotGun(char boardUser[10][10])
+
 {
 	do
 	{
-		int posXEnemy = 0;
-		int posYEnemy = 0;
-		if (mDirection)
-		{
-			cout << "\n WORLLDD!!!! IS MY!!!!!!!!!!!!!!!!\n" << endl;
-			cout << "mDirection == true" << endl;
-
-		}
-		else
-		{
-			cout << "mDirection == false" << endl;
-		}
 		
-		if (mDirection == false)//м≥н€Їмо мƒфрект
+		if (mDirection == false)
 
 		{
 			
 
-			if (boardUser[posXEnemy][posYEnemy] != '#')
+			if (boardUser[posXEnemy][posYEnemy] != '#' && boardUser[posXEnemy][posYEnemy] != 'x'&& boardUser[posXEnemy][posYEnemy] != 'O')
 			{
 				mShip->shotUser(posXEnemy, posYEnemy, boardUser);
 				drawBoard(boardUser, clearBoard);
 				mDirection = true;
-				posXEnemy++;
-				posYEnemy++;
-				cout << "miss^((((" << endl;
+
+				cout << "miss :(" << endl;
 				cout << "x = " << posXEnemy << "y = " << posYEnemy << endl;
+				Sleep(2000);
 
 			}
 			else
 			{
+				
 				scoreUser();
 				mShip->shotEnemies(posXEnemy, posYEnemy, boardUser);
 				drawBoard(boardUser, clearBoard);
 				mDirection = false;
-				posXEnemy++;
+				posXEnemy = (posXEnemy++)%10;
+				Sleep(2000);
 				cout << "Nice shot!!!!!" << endl;
+				cout << "x = " << posXEnemy << "y = " << posYEnemy << endl;
+				Sleep(2000);
 			}
 		}
-
+	
 		posXEnemy++;
 		posYEnemy++;
 		if (posXEnemy == 9 || posYEnemy == 9)
 		{
 			--posXEnemy;
 		}
+		
+
 
 
 	} while (mDirection!=true);
@@ -184,7 +184,7 @@ void Board::enemyShotGun(char boardUser[10][10])//метод ,- ход искуственного инт
 
 
 }
-void Board::userShotGun(char boardEnemy[10][10])
+void Board::userShotGun(char boardUser[10][10], char boardEnemy[10][10])
 {
 	do
 	{
@@ -198,7 +198,7 @@ void Board::userShotGun(char boardEnemy[10][10])
 			if (boardEnemy[posX][posY] != '#')
 			{
 				mShip->shotUser(posX, posY, clearBoard);
-				drawBoard(boardEnemy, clearBoard);
+				drawBoard(boardUser, clearBoard);
 				mDirection = false;
 
 			}
@@ -206,7 +206,7 @@ void Board::userShotGun(char boardEnemy[10][10])
 			{
 				scoreEnemy();
 				mShip->shotEnemies(posX, posY, clearBoard);
-				drawBoard(boardEnemy, clearBoard);
+				drawBoard(boardUser, clearBoard);
 				mDirection = true;
 
 			}
@@ -219,7 +219,3 @@ void Board::userShotGun(char boardEnemy[10][10])
 }
 
 
-
-Board::~Board()
-{
-}

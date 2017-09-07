@@ -19,9 +19,7 @@ Game::Game()
 	{
 		gameExit();
 	}
-	
-
-	
+		
 
 }
 
@@ -37,8 +35,9 @@ void Game::gameMenu()
 
 	cout << "Enter your name\n";
 	cin >> userName;
+	system("cls");
 
-	cout << "Hi  " << userName << endl;
+	cout << "Hi,       "<< '<' << userName << ">\n\n\n";
 
 	cout << "You have 1 4-deck ship  ####\n";
 	cout << "         2 3-deck ships ###\n";
@@ -53,17 +52,16 @@ void Game::gameMenu()
 void Game::gameStart()
 {
 	
-	mMap = new Map();
-
-
+	mMap = new Map();	
 	
 }
 
-void Game::gameRestart()
+/*void Game::gameRestart()
 {
 
 
 }
+*/
 
 void Game::gameExit()
 {
@@ -72,6 +70,4 @@ void Game::gameExit()
 }
 
 
-Game::~Game()
-{
-}
+
